@@ -10,14 +10,16 @@ ENV ZEO_CONF=/etc/opt/zeoserver
 RUN groupadd -g 414 zope && \
     useradd -u 414 -g 414 -d $ZEO_HOME -m -s /bin/bash zope
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python2.7 && \
+# Centos7 doesn't have a pip package and the ensurepip module is broken in their python3.4 package
+# otherwise python3.4 -m ensurepip would do it as well
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3.4 && \
     rm -fr ~/.cache
 
 COPY files/requirements.txt $ZEO_HOME/
 
 WORKDIR $ZEO_HOME
 
-RUN pip2.7 install -r requirements.txt && \
+RUN pip3.4 install -r requirements.txt && \
     rm -fr ~/.cache
 
 RUN mkdir -p $ZEO_VAR/filestorage
