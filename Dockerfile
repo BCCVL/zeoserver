@@ -1,6 +1,6 @@
-FROM hub.bccvl.org.au/centos/centos7-epel:2016-02-04
+FROM hub.bccvl.org.au/centos/centos7-epel:2016-04-15
 
-RUN yum install -y python-devel gcc rsync && \
+RUN yum install -y gcc python-devel rsync && \
     yum clean all
 
 ENV SETUPTOOLS 20.0
